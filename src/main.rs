@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use rand::Rng;
 
 fn main() {
     App::new()
@@ -45,11 +46,11 @@ fn setup(mut commands: Commands) {
     commands.spawn_bundle(SpriteBundle {
         sprite: Sprite {
             color: Color::rgb(0.25, 0.25, 0.75),
-            custom_size: Some(Vec2::new(900.0, 50.0)),
+            custom_size: Some(Vec2::new(50.0, 50.0)),
             ..Default::default()
         },
         transform: Transform {
-            translation: Vec3::new(300.0, 300.0, 0.0),
+            translation: Vec3::new(rand::thread_rng().gen_range(-500, 500) as f32, rand::thread_rng().gen_range(-400, 400) as f32, 0.0),
             ..Default::default()    
         },
         ..Default::default()
