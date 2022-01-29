@@ -45,6 +45,15 @@ fn main() {
 
 fn setup(mut commands: Commands) {
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
+    commands.spawn_bundle(SpriteBundle {
+        sprite: Sprite {
+            // color: Color::rgb(0.25, 0.25, 0.75),
+            color: Color::hsl(220.0, 0.5, 0.1),
+            custom_size: Some(Vec2::new(1280.0, 720.0)),
+            ..Default::default()
+        },
+        ..Default::default()
+    });
 }
 
 struct RectTimer(Timer);
@@ -53,12 +62,13 @@ fn spawn_rects(time: Res<Time>, mut timer: ResMut<RectTimer>, mut commands: Comm
     if timer.0.tick(time.delta()).just_finished() {
         commands.spawn_bundle(SpriteBundle {
             sprite: Sprite {
-                color: Color::rgb(0.25, 0.25, 0.75),
+                // color: Color::rgb(0.25, 0.25, 0.75),
+                color: Color::hsl(rand::thread_rng().gen_range(0, 360) as f32, 0.5, 0.5),
                 custom_size: Some(Vec2::new(50.0, 50.0)),
                 ..Default::default()
             },
             transform: Transform {
-                translation: Vec3::new(rand::thread_rng().gen_range(-612, 612) as f32, rand::thread_rng().gen_range(-360, 360) as f32, 0.0),
+                translation: Vec3::new(rand::thread_rng().gen_range(-640, 640) as f32, rand::thread_rng().gen_range(-360, 360) as f32, 0.0),
                 ..Default::default()    
             },
             ..Default::default()
