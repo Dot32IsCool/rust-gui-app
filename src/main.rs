@@ -6,7 +6,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         // .add_plugin(HelloPlugin)
         .add_startup_system(setup)
-        .insert_resource(RectTimer(Timer::from_seconds(0.2, true)))
+        .insert_resource(RectTimer(Timer::from_seconds(0.001, true)))
         .add_system(spawn_rects)
         .run();
 }
