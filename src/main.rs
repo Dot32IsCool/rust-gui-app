@@ -3,10 +3,11 @@ use rand::Rng;
 
 fn main() {
     App::new()
+        .insert_resource(ClearColor(Color::hsl(220.0, 0.5, 0.1)))
+        .insert_resource(RectTimer(Timer::from_seconds(0.001, true)))
         .add_plugins(DefaultPlugins)
         // .add_plugin(HelloPlugin)
         .add_startup_system(setup)
-        .insert_resource(RectTimer(Timer::from_seconds(0.001, true)))
         .add_system(spawn_rects)
         .run();
 }
@@ -45,15 +46,15 @@ fn main() {
 
 fn setup(mut commands: Commands) {
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
-    commands.spawn_bundle(SpriteBundle {
-        sprite: Sprite {
-            // color: Color::rgb(0.25, 0.25, 0.75),
-            color: Color::hsl(220.0, 0.5, 0.1),
-            custom_size: Some(Vec2::new(1280.0, 720.0)),
-            ..Default::default()
-        },
-        ..Default::default()
-    });
+    // commands.spawn_bundle(SpriteBundle {
+    //     sprite: Sprite {
+    //         // color: Color::rgb(0.25, 0.25, 0.75),
+    //         color: Color::hsl(220.0, 0.5, 0.1),
+    //         custom_size: Some(Vec2::new(1280.0, 720.0)),
+    //         ..Default::default()
+    //     },
+    //     ..Default::default()
+    // });
 }
 
 struct RectTimer(Timer);
