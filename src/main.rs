@@ -6,6 +6,8 @@ fn main() {
         .add_plugins(DefaultPlugins)
         // .add_plugin(HelloPlugin)
         .add_startup_system(setup)
+        .insert_resource(RectTimer(Timer::from_seconds(0.2, true)))
+        .add_system(spawn_rects)
         .run();
 }
 
@@ -43,16 +45,23 @@ fn main() {
 
 fn setup(mut commands: Commands) {
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
-    commands.spawn_bundle(SpriteBundle {
-        sprite: Sprite {
-            color: Color::rgb(0.25, 0.25, 0.75),
-            custom_size: Some(Vec2::new(50.0, 50.0)),
+}
+
+struct RectTimer(Timer);
+
+fn spawn_rects(time: Res<Time>, mut timer: ResMut<RectTimer>, mut commands: Commands) {
+    if timer.0.tick(time.delta()).just_finished() {
+        commands.spawn_bundle(SpriteBundle {
+            sprite: Sprite {
+                color: Color::rgb(0.25, 0.25, 0.75),
+                custom_size: Some(Vec2::new(50.0, 50.0)),
+                ..Default::default()
+            },
+            transform: Transform {
+                translation: Vec3::new(rand::thread_rng().gen_range(-612, 612) as f32, rand::thread_rng().gen_range(-360, 360) as f32, 0.0),
+                ..Default::default()    
+            },
             ..Default::default()
-        },
-        transform: Transform {
-            translation: Vec3::new(rand::thread_rng().gen_range(-500, 500) as f32, rand::thread_rng().gen_range(-400, 400) as f32, 0.0),
-            ..Default::default()    
-        },
-        ..Default::default()
-    });
+        });
+    }
 }
