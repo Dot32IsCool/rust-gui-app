@@ -3,12 +3,20 @@ use rand::Rng;
 
 fn main() {
     App::new()
+        .insert_resource(WindowDescriptor {
+            title: "Learning bevy (Random squares) (GUI app in Rust!)".to_string(),
+            width: 800.,
+            height: 600.,
+            vsync: true,
+            ..Default::default()
+        })
         .insert_resource(ClearColor(Color::hsl(220.0, 0.5, 0.1)))
         .insert_resource(RectTimer(Timer::from_seconds(0.001, true)))
         .add_plugins(DefaultPlugins)
         // .add_plugin(HelloPlugin)
         .add_startup_system(setup)
         .add_system(spawn_rects)
+        .add_system(print_window_size)
         .run();
 }
 
@@ -74,5 +82,18 @@ fn spawn_rects(time: Res<Time>, mut timer: ResMut<RectTimer>, mut commands: Comm
             },
             ..Default::default()
         });
+    }
+}
+
+fn print_window_size(windows: Res<Windows>, mut old_window_size: Local<(f32,f32)>) {
+    let windows = windows.get_primary().unwrap();
+    let window_size = (windows.width(), windows.height());
+    // tolerance is one whole pixel..
+    let changed_size = (window_size.0 - old_window_size.0).abs() +
+    (window_size.1 - old_window_size.1).abs() >= 1.;
+
+    if changed_size {
+        println!("Window size: {:?}", window_size);
+        *old_window_size = window_size;
     }
 }
