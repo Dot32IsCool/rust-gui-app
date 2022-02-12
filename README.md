@@ -6,4 +6,6 @@ Something interesting is that in bevy's coordinate system, the origin (0,0) is i
 <!-- 
 <img width="1392" alt="Screen Shot 2022-01-29 at 12 16 31" src="https://user-images.githubusercontent.com/61964090/151646919-69ee69cb-d7d2-44a9-bd0c-3a8d54d28974.png"> -->
 
+<img width="1728" alt="Screen Shot 2022-02-12 at 17 03 13" src="https://user-images.githubusercontent.com/61964090/153704926-f1c15519-3b9c-400e-a56e-8bc8d0da8ed4.png">
+
 <img width="1033" alt="Screen Shot 2022-01-29 at 14 55 25" src="https://user-images.githubusercontent.com/61964090/151651127-50aaa44d-8cd8-4c85-b586-29b49863eaf6.png">
