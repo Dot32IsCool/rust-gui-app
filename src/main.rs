@@ -52,8 +52,9 @@ fn main() {
 //     }
 // }
 
-fn setup(mut commands: Commands) {
+fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn_bundle(OrthographicCameraBundle::new_2d());
+    commands.spawn_bundle(UiCameraBundle::default());
     // commands.spawn_bundle(SpriteBundle {
     //     sprite: Sprite {
     //         // color: Color::rgb(0.25, 0.25, 0.75),
@@ -63,6 +64,34 @@ fn setup(mut commands: Commands) {
     //     },
     //     ..Default::default()
     // });
+    commands.spawn_bundle(TextBundle {
+        style: Style {
+            align_self: AlignSelf::FlexEnd,
+            position_type: PositionType::Absolute,
+            position: Rect {
+                bottom: Val::Px(5.0),
+                right: Val::Px(15.0),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        // Use the `Text::with_section` constructor
+        text: Text::with_section(
+            // Accepts a `String` or any type that converts into a `String`, such as `&str`
+            "Dot32 is cool",
+            TextStyle {
+                font: asset_server.load("fonts/PT_Sans/PTSans-Bold.ttf"),
+                font_size: 100.0,
+                color: Color::WHITE,
+            },
+            // Note: You can use `Default::default()` in place of the `TextAlignment`
+            TextAlignment {
+                horizontal: HorizontalAlign::Center,
+                ..Default::default()
+            },
+        ),
+        ..Default::default()
+    });
 }
 
 struct RectTimer(Timer);
@@ -77,7 +106,7 @@ fn spawn_rects(time: Res<Time>, mut timer: ResMut<RectTimer>, mut commands: Comm
                 ..Default::default()
             },
             transform: Transform {
-                translation: Vec3::new(rand::thread_rng().gen_range(-640, 640) as f32, rand::thread_rng().gen_range(-360, 360) as f32, 0.0),
+                translation: Vec3::new(rand::thread_rng().gen_range(-400, 400) as f32, rand::thread_rng().gen_range(-300, 300) as f32, 0.0),
                 ..Default::default()    
             },
             ..Default::default()
